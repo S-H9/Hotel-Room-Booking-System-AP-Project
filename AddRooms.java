@@ -76,6 +76,20 @@ public class AddRooms {
 
         addRoomsPanel.add(submitButton);
 
+        // Delete Button
+        JButton deleteButton = new JButton("Delete");
+        layout.putConstraint(SpringLayout.WEST, deleteButton, 120, SpringLayout.WEST, addRoomsPanel);
+        layout.putConstraint(SpringLayout.NORTH, deleteButton, 30, SpringLayout.SOUTH, availableYes);
+
+        addRoomsPanel.add(deleteButton);
+
+        // Delete All Button
+        JButton deleteAllButton = new JButton("Delete All");
+        layout.putConstraint(SpringLayout.WEST, deleteAllButton, 220, SpringLayout.WEST, addRoomsPanel);
+        layout.putConstraint(SpringLayout.NORTH, deleteAllButton, 30, SpringLayout.SOUTH, availableYes);
+
+        addRoomsPanel.add(deleteAllButton);
+
         // Table to display data
         JTable roomsTable = new JTable(new DefaultTableModel(
                 new Object[]{"Room Number", "Room Type", "Price", "Availability"}, 0
@@ -96,34 +110,95 @@ public class AddRooms {
                 String price = priceField.getText();
                 Boolean availability = availableYes.isSelected();
 
-                // Database connection variables
                 String url = "jdbc:mysql://localhost:3306/HotelBookingSystem";
                 String username = "root";
                 String password = "";
 
-                // SQL query to insert data
                 String sql = "INSERT INTO rooms (room_number, room_type, price, availability) VALUES (?, ?, ?, ?)";
 
                 try (Connection connection = DriverManager.getConnection(url, username, password);
                      PreparedStatement statement = connection.prepareStatement(sql)) {
 
-                    // Set parameters
                     statement.setString(1, roomNumber);
                     statement.setString(2, roomType);
                     statement.setString(3, price);
                     statement.setBoolean(4, availability);
 
-                    // Execute the query
                     int rowsInserted = statement.executeUpdate();
                     if (rowsInserted > 0) {
                         JOptionPane.showMessageDialog(null, "Room details added successfully!");
                     }
 
-                    // Refresh table data
                     refreshTableData(roomsTable);
 
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
+                }
+            }
+        });
+
+        // Add action listener to the Delete button
+        deleteButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                int selectedRow = roomsTable.getSelectedRow();
+                if (selectedRow == -1) {
+                    JOptionPane.showMessageDialog(null, "Please select a room to delete.");
+                    return;
+                }
+
+                String roomNumber = (String) roomsTable.getValueAt(selectedRow, 0);
+
+                String url = "jdbc:mysql://localhost:3306/HotelBookingSystem";
+                String username = "root";
+                String password = "";
+
+                String sql = "DELETE FROM rooms WHERE room_number = ?";
+
+                try (Connection connection = DriverManager.getConnection(url, username, password);
+                     PreparedStatement statement = connection.prepareStatement(sql)) {
+
+                    statement.setString(1, roomNumber);
+
+                    int rowsDeleted = statement.executeUpdate();
+                    if (rowsDeleted > 0) {
+                        JOptionPane.showMessageDialog(null, "Room deleted successfully!");
+                    }
+
+                    refreshTableData(roomsTable);
+
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
+                }
+            }
+        });
+
+        // Add action listener to the Delete All button
+        deleteAllButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                int response = JOptionPane.showConfirmDialog(null,
+                        "Are you sure you want to delete all rooms?",
+                        "Confirm Delete All",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.WARNING_MESSAGE);
+
+                if (response == JOptionPane.YES_OPTION) {
+                    String url = "jdbc:mysql://localhost:3306/HotelBookingSystem";
+                    String username = "root";
+                    String password = "";
+
+                    String sql = "DELETE FROM rooms";
+
+                    try (Connection connection = DriverManager.getConnection(url, username, password);
+                         PreparedStatement statement = connection.prepareStatement(sql)) {
+
+                        int rowsDeleted = statement.executeUpdate();
+                        JOptionPane.showMessageDialog(null, rowsDeleted + " room(s) deleted successfully!");
+
+                        refreshTableData(roomsTable);
+
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
+                    }
                 }
             }
         });
@@ -146,7 +221,7 @@ public class AddRooms {
              ResultSet resultSet = statement.executeQuery()) {
 
             DefaultTableModel model = (DefaultTableModel) table.getModel();
-            model.setRowCount(0); // Clear existing rows
+            model.setRowCount(0);
 
             while (resultSet.next()) {
                 String roomNumber = resultSet.getString("room_number");
@@ -164,23 +239,18 @@ public class AddRooms {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                // Create main frame
                 JFrame frame = new JFrame("Hotel Management System");
                 frame.setSize(800, 600);
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-                // Create JTabbedPane
                 JTabbedPane tabbedPane = new JTabbedPane();
 
-                // Add "Add Room" tab
                 AddRoomTab(tabbedPane);
 
-                // Add additional tabs as needed
                 JPanel otherTabPanel = new JPanel();
                 otherTabPanel.add(new JLabel("Other Functionality"));
                 tabbedPane.addTab("Other Tab", otherTabPanel);
 
-                // Add tabbedPane to frame
                 frame.getContentPane().add(tabbedPane);
                 frame.setVisible(true);
             }
