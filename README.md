@@ -1,118 +1,85 @@
 # Hotel Room Booking System
-developing a Hotel Room  Booking System using Java with a Graphical User Interface (GUI) and a database. The  system will help hotel staff manage room bookings and guest details effectively. 
 
-A comprehensive hotel management system built with Java and MySQL for managing room bookings, guest information, and hotel operations.
+Welcome to the **Hotel Room Booking System**! This project is a comprehensive hotel management system developed using **Java** with a **Graphical User Interface (GUI)** and a **MySQL/SQLite database**. The system is designed to help hotel staff manage room bookings, guest information, and hotel operations efficiently.
 
-## 🎯 Scope
-
-The system is designed to:
-- Maintain a database of hotel rooms and guest information
-- Facilitate room booking, cancellation, and check-in/check-out processes
-- Provide a simple and intuitive GUI for staff interactions
+---
 
 ## 🎨 Features
 
 ### Room Management
-- Add new rooms with details (room number, type, price)
-- Edit existing room information
-- Delete rooms from the system
-- Search rooms by type, price range, or availability
+- Add new rooms with details (room number, type, price).
+- Edit existing room information.
+- Delete rooms from the system.
+- Search rooms by type, price range, or availability.
 
 ### Booking Management
-- Create new room bookings
-- Cancel existing bookings
-- View current and upcoming bookings
+- Create new room bookings.
+- Cancel existing bookings.
+- View current and upcoming bookings.
 
 ### Guest Management
-- Record guest details (name, contact, ID proof)
-- Edit guest information
-- Manage guest records
+- Record guest details (name, contact, ID proof).
+- Edit guest information.
+- Manage guest records.
 
 ### Reporting
-Generate reports for:
-- Currently occupied rooms
-- Room availability for specific dates
-- Current hotel guests
+- Generate reports for:
+  - Currently occupied rooms.
+  - Room availability for specific dates.
+  - Current hotel guests.
+
+---
 
 ## 🛠 Technical Requirements
 
 ### System Requirements
-- Java Runtime Environment (JRE) 8 or higher
-- MySQL/SQLite database
-- Operating System: Windows, macOS, or Linux
+- **Java Runtime Environment (JRE) 8 or higher**.
+- **MySQL/SQLite database**.
+- **Operating System**: Windows, macOS, or Linux.
 
 ### Development Tools
-- Programming Language: Java
-- GUI Framework: Java Swing/AWT
-- Database: MySQL/SQLite/PostgreSQL
-- IDE: IntelliJ IDEA, Eclipse, or NetBeans
+- **Programming Language**: Java.
+- **GUI Framework**: Java Swing/AWT.
+- **Database**: MySQL/SQLite/PostgreSQL.
+- **IDE**: IntelliJ IDEA, Eclipse, or NetBeans.
 
-## 📊 Database Schema
+---
 
-### Rooms Table
-| Column Name | Data Type | Description |
-|-------------|-----------|-------------|
-| room_id | INT (PK) | Unique identifier |
-| room_number | VARCHAR(10) | Room number |
-| room_type | VARCHAR(20) | Type (single/double/suite) |
-| price | DECIMAL(10,2) | Price per night |
-| availability | BOOLEAN | Availability status |
+## 🚀 Installation Guide for Developers
 
-### Guests Table
-| Column Name | Data Type | Description |
-|-------------|-----------|-------------|
-| guest_id | INT (PK) | Unique identifier |
-| name | VARCHAR(255) | Guest's name |
-| contact_info | VARCHAR(255) | Contact details |
-| id_proof | VARCHAR(255) | ID proof details |
+Follow these steps to set up the **Hotel Room Booking System** on your local machine for development.
 
-### Bookings Table
-| Column Name | Data Type | Description |
-|-------------|-----------|-------------|
-| booking_id | INT (PK) | Unique booking ID |
-| room_id | INT (FK) | Booked room ID |
-| guest_id | INT (FK) | Booking guest ID |
-| check_in_date | DATE | Check-in date |
-| check_out_date | DATE | Check-out date |
+### Prerequisites
+1. **Java Development Kit (JDK) 8 or higher**:
+   - Download and install the JDK from [Oracle's website](https://www.oracle.com/java/technologies/javase-downloads.html).
+   - Verify the installation by running:
+     ```bash
+     java -version
+     javac -version
+     ```
 
-## 📋 Non-Functional Requirements
+2. **MySQL Database**:
+   - Download and install MySQL from the [official website](https://dev.mysql.com/downloads/installer/).
+   - Start the MySQL server 
 
-### Usability
-- User-friendly interface
-- Minimal training required for staff
 
-### Performance
-- Support for 200+ rooms
-- Handle 1000+ bookings efficiently
+---
 
-### Security
-- Restricted admin access
-- Secure database connections
-- Protected guest information
+### Step 1: Clone the Repository
+Clone the repository to your local machine using the following command:
+```bash
+git clone https://github.com/your-repo/hotel-room-booking-system.git
+```
 
-### Scalability
-- Support for future enhancements
-- Payment system integration ready
-- Online booking capability
+## Step 2: Import the Project into Your IDE
+1. Open your IDE (e.g., IntelliJ IDEA, Eclipse, or NetBeans).
+2. import all the files into your IDE.
+3. Ensure all dependencies are resolved.
 
-## 📦 Deliverables
+---
 
-1. Source Code
-   - Java source files
-   - GUI design files
-   - SQL database scripts
-
-2. Documentation
-   - User guide
-   - Developer guide
-   - Test cases and results
-
-## 💯 Evaluation Criteria
-
-| Criteria | Points |
-|----------|---------|
-| Functionality | 50 |
-| Database | 20 |
-| GUI Usability | 20 |
-| Code Documentation | 10 |
-| **Total** | **100** |
+## Step 3: Build and Run the Application
+1. Navigate to the `src/` directory.
+2. Locate the `HotelRoomBookingSystem.java` file, which is the entry point of the application.
+3. Run the `HotelRoomBookingSystem.java` file to start the application.
+## **Note: **by running the application the database with its table will be automatically imported into your database****
